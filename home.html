@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnLand - Fun Educational Blog</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FFC107;
+            --dark: #333;
+            --light: #f9f9f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #8BC34A);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: var(--secondary);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+        
+        .logo {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .main-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .widget {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+        }
+        
+        .widget-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        article {
+            margin-bottom: 3rem;
+        }
+        
+        article:last-child {
+            margin-bottom: 0;
+        }
+        
+        .article-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .article-meta span {
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta i {
+            margin-right: 0.3rem;
+        }
+        
+        .article-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .article-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .article-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .read-more {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .read-more:hover {
+            background-color: #3e8e41;
+            transform: translateY(-2px);
+        }
+        
+        .popular-posts {
+            list-style: none;
+        }
+        
+        .popular-post {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popular-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-post img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
+        .popular-post-title {
+            font-size: 0.9rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .popular-post-title:hover {
+            color: var(--primary);
+        }
+        
+        .categories {
+            list-style: none;
+        }
+        
+        .category {
+            margin-bottom: 0.5rem;
+        }
+        
+        .category a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s;
+            display: block;
+            padding: 0.3rem 0;
+        }
+        
+        .category a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .category-count {
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        
+        .quiz-widget {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-option:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .quiz-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-submit:hover {
+            background-color: #3e8e41;
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .newsletter-input {
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-submit:hover {
+            background-color: #3e8e41;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links li {
+            margin: 0 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Animation classes */
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {transform: scale(1);}
+            50% {transform: scale(1.05);}
+            100% {transform: scale(1);}
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="pulse">LearnLand</h1>
+            <p class="tagline">Where Learning Meets Fun!</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search topics..." style="padding: 0.5rem; width: 300px; max-width: 100%; border: none; border-radius: 4px;">
+                <button style="padding: 0.5rem 1rem; background-color: var(--secondary); border: none; border-radius: 4px; margin-left: 0.5rem; cursor: pointer;">Search</button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">LearnLand</div>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> Subjects</a></li>
+                <li><a href="#"><i class="fas fa-video"></i> Videos</a></li>
+                <li><a href="#"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> Quizzes</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <main class="main-content">
+            <article>
+                <h2 class="article-title">The Amazing World of Photosynthesis</h2>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                    <span><i class="far fa-user"></i> Dr. Green Thumb</span>
+                    <span><i class="far fa-comments"></i> 12 Comments</span>
+                </div>
+                <div class="article-content">
+                    <img src="https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Photosynthesis" class="article-image">
+                    <p>Have you ever wondered how plants make their own food? The process is called photosynthesis, and it's one of nature's most amazing tricks! In this article, we'll explore how plants turn sunlight into energy.</p>
+                    
+                    <h3 style="margin: 1.5rem 0 1rem; color: var(--primary);">The Photosynthesis Formula</h3>
+                    <p style="background-color: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 1.1rem;">
+                        6CO<sub>2</sub> + 6H<sub>2</sub>O + light energy → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub>
+                    </p>
+                    
+                    <p>This means plants take in carbon dioxide (CO<sub>2</sub>) and water (H<sub>2</sub>O), and using sunlight, they convert these into glucose (sugar) and oxygen (O<sub>2</sub>). The oxygen they release is what we breathe!</p>
+                    
+                    <div class="interactive-demo" style="background-color: #e8f5e9; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                        <h4 style="margin-bottom: 1rem; color: var(--primary);"><i class="fas fa-flask"></i> Try This at Home!</h4>
+                        <p>Watch photosynthesis in action with this simple experiment:</p>
+                        <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Place a leaf in a clear glass of water</li>
+                            <li>Put it in a sunny spot</li>
+                            <li>Wait a few hours and look for tiny bubbles</li>
+                        </ol>
+                        <p style="margin-top: 0.5rem;">Those bubbles are oxygen being released by the leaf!</p>
+                    </div>
+                </div>
+                <a href="#" class="read-more">Continue Reading</a>
+            </article>
+            
+            <article>
+                <h2 class="article-title">The Magic of Mathematics: Fibonacci Sequence</h2>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar-alt"></i> June 10, 2023</span>
+                    <span><i class="far fa-user"></i> Professor Numbers</span>
+                    <span><i class="far fa-comments"></i> 8 Comments</span>
+                </div>
+                <div class="article-content">
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Fibonacci Sequence" class="article-image">
+                    <p>The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, usually starting with 0 and 1. It appears unexpectedly in nature, art, and architecture.</p>
+                    
+                    <div style="overflow-x: auto; margin: 1.5rem 0;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background-color: var(--primary); color: white;">
+                                <th style="padding: 0.8rem; text-align: left;">Position</th>
+                                <th style="padding: 0.8rem; text-align: left;">Fibonacci Number</th>
+                                <th style="padding: 0.8rem; text-align: left;">Found In Nature</th>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 0.8rem;">1</td>
+                                <td style="padding: 0.8rem;">0</td>
+                                <td style="padding: 0.8rem;">-</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 0.8rem;">2</td>
+                                <td style="padding: 0.8rem;">1</td>
+                                <td style="padding: 0.8rem;">-</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 0.8rem;">3</td>
+                                <td style="padding: 0.8rem;">1</td>
+                                <td style="padding: 0.8rem;">Petals on some flowers</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 0.8rem;">5</td>
+                                <td style="padding: 0.8rem;">5</td>
+                                <td style="padding: 0.8rem;">Starfish arms</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.8rem;">8</td>
+                                <td style="padding: 0.8rem;">21</td>
+                                <td style="padding: 0.8rem;">Pinecone spirals</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="math-game" style="background-color: #f5f5f5; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                        <h4 style="margin-bottom: 1rem; color: var(--primary);"><i class="fas fa-gamepad"></i> Fibonacci Game</h4>
+                        <p>Can you calculate the next Fibonacci number?</p>
+                        <p style="font-family: monospace; font-size: 1.2rem; margin: 0.5rem 0;">0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ?</p>
+                        <input type="number" id="fib-answer" placeholder="Your answer" style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; margin-right: 0.5rem;">
+                        <button onclick="checkFibonacci()" style="padding: 0.5rem 1rem; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">Check Answer</button>
+                        <p id="fib-result" style="margin-top: 0.5rem;"></p>
+                    </div>
+                </div>
+                <a href="#" class="read-more">Continue Reading</a>
+            </article>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="widget">
+                <h3 class="widget-title"><i class="fas fa-fire"></i> Popular Posts</h3>
+                <ul class="popular-posts">
+                    <li class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Space">
+                        <a href="#" class="popular-post-title">Exploring the Solar System: A Beginner's Guide</a>
+                    </li>
+                    <li class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Physics">
+                        <a href="#" class="popular-post-title">Newton's Laws of Motion Explained with Everyday Examples</a>
+                    </li>
+                    <li class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="History">
+                        <a href="#" class="popular-post-title">Ancient Civilizations: How They Shaped Our World</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="widget">
+                <h3 class="widget-title"><i class="fas fa-bookmark"></i> Categories</h3>
+                <ul class="categories">
+                    <li class="category"><a href="#">Science <span class="category-count">24</span></a></li>
+                    <li class="category"><a href="#">Mathematics <span class="category-count">18</span></a></li>
+                    <li class="category"><a href="#">History <span class="category-count">15</span></a></li>
+                    <li class="category"><a href="#">Geography <span class="category-count">12</span></a></li>
+                    <li class="category"><a href="#">Languages <span class="category-count">9</span></a></li>
+                    <li class="category"><a href="#">Art & Music <span class="category-count">7</span></a></li>
+                </ul>
+            </div>
+            
+            <div class="widget quiz-widget">
+                <h3 class="widget-title"><i class="fas fa-question-circle"></i> Quick Quiz</h3>
+                <p class="quiz-question">What is the chemical symbol for gold?</p>
+                <div class="quiz-option" onclick="selectOption(this)">A. Go</div>
+                <div class="quiz-option" onclick="selectOption(this)">B. Gd</div>
+                <div class="quiz-option" onclick="selectOption(this)">C. Au</div>
+                <div class="quiz-option" onclick="selectOption(this)">D. Ag</div>
+                <button class="quiz-submit" onclick="checkQuiz()">Submit Answer</button>
+                <div class="quiz-result" id="quiz-result"></div>
+            </div>
+            
+            <div class="widget">
+                <h3 class="widget-title"><i class="fas fa-envelope"></i> Newsletter</h3>
+                <p>Subscribe to get weekly educational content!</p>
+                <form class="newsletter-form">
+                    <input type="text" class="newsletter-input" placeholder="Your Name">
+                    <input type="email" class="newsletter-input" placeholder="Your Email">
+                    <button type="submit" class="newsletter-submit">Subscribe</button>
+                </form>
+            </div>
+            
+            <div class="widget bounce" style="text-align: center; background-color: var(--secondary); color: var(--dark);">
+                <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-trophy"></i> Daily Challenge!</h3>
+                <p style="font-weight: bold;">Solve 3 math problems today and earn points!</p>
+                <button style="padding: 0.5rem 1rem; background-color: var(--primary); color: white; border: none; border-radius: 4px; margin-top: 0.5rem; cursor: pointer;">Start Challenge</button>
+            </div>
+        </aside>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>LearnLand</h3>
+            <p>Making education fun and accessible for everyone</p>
+            
+            <ul class="social-links">
+                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="#"><i class="fab fa-tiktok"></i></a></li>
+            </ul>
+            
+            <ul class="footer-links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+            
+            <p class="copyright">© 2023 LearnLand. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Quiz functionality
+        let selectedOption = null;
+        
+        function selectOption(element) {
+            // Remove selected class from all options
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.style.backgroundColor = '';
+            });
+            
+            // Add selected class to clicked option
+            element.style.backgroundColor = '#e0e0e0';
+            selectedOption = element;
+        }
+        
+        function checkQuiz() {
+            const resultElement = document.getElementById('quiz-result');
+            
+            if (!selectedOption) {
+                resultElement.textContent = "Please select an answer!";
+                resultElement.style.color = "red";
+                resultElement.style.display = "block";
+                return;
+            }
+            
+            if (selectedOption.textContent.includes("C. Au")) {
+                resultElement.textContent = "Correct! Gold's symbol is Au (from Latin 'Aurum').";
+                resultElement.style.color = "green";
+            } else {
+                resultElement.textContent = "Incorrect. The correct answer is C. Au (from Latin 'Aurum').";
+                resultElement.style.color = "red";
+            }
+            
+            resultElement.style.display = "block";
+        }
+        
+        // Fibonacci game functionality
+        function checkFibonacci() {
+            const answer = document.getElementById('fib-answer').value;
+            const resultElement = document.getElementById('fib-result');
+            
+            if (answer === "55") {
+                resultElement.textContent = "Correct! The next number is 55 (21+34).";
+                resultElement.style.color = "green";
+            } else {
+                resultElement.textContent = "Not quite. The next Fibonacci number is 55 (21+34).";
+                resultElement.style.color = "red";
+            }
+        }
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const articles = document.querySelectorAll('article');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 1s ease-in';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            articles.forEach(article => {
+                observer.observe(article);
+            });
+        });
+    </script>
+</body>
+</html>
